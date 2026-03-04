@@ -1,0 +1,27 @@
+name: Aternos Bot 24/7
+
+on:
+  push:
+  schedule:
+    - cron: '*/30 * * * *' # Roda a cada 30 min para garantir que não pare
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: |
+          pip install mcstatus # Ou as dependências do seu bot
+      - name: Run Bot
+        env:
+          USER: ${{ secrets.ATERNO_USER }}
+          PW: ${{ secrets.ATERNO_PW }}
+          IP: ${{ secrets.SERVER_IP }}
+        run: |
+          python bot.py
