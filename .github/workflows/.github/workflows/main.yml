@@ -1,0 +1,26 @@
+name: 24/7 Aternos Bot
+
+on:
+  push:
+  schedule:
+    - cron: '*/5 * * * *' # Executa a cada 5 minutos
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+          
+      - name: Install dependencies
+        run: |
+          pip install mcstatus # Ou outras dependências do seu bot
+          
+      - name: Run Bot
+        run: |
+          python main.py
